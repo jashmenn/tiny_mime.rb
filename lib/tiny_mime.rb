@@ -3,7 +3,9 @@ $:.unshift(File.dirname(__FILE__)) unless
 
 # A class for encoding data into MIME attachments. Not optimized for
 # large attachments, but should be sufficient for small attachments.
-# Original Version by Matt Pulver
+#
+# Original author:  Matt Pulver
+# maintained by: Nate Murray
 =begin
 Example Usage:
 
@@ -14,11 +16,14 @@ puts mime.to_s
 
 =end
 class TinyMIME
+  attr_accessor :content_type_parts
+
   ALPHABET = (0..9).to_a + ('A'..'Z').to_a + ('a'..'z').to_a # 62 = 10 + 26 + 26
   EOL = "\r\n"
   def initialize( header = {} )
     @header = header
     @attachments = Array.new
+    @content_type_parts = ["Multipart/Related",  "boundary=\"#{boundary}\"", "charset=utf-8"] 
   end
   def boundary
     # 43 random characters from a set of 62 gives 43*log_2(62) > 256 random bits
@@ -29,9 +34,10 @@ class TinyMIME
   end
   def head
     # TODO : pass in additional parameters to the Content-Type value
-    head = @header.merge({ 'Content-Type' =>
-       "Multipart/Related; boundary=\"#{boundary}\"; charset=utf-8" })
-    ( head.to_a.map { |n,v| "#{n}: #{v}" } + ['',''] ).join(EOL)
+    ( self.headers.to_a.map { |n,v| "#{n}: #{v}" } + ['',''] ).join(EOL)
+  end
+  def headers
+    @header.merge({ 'Content-Type' => @content_type_parts.join("; ") })
   end
   def preamble
     "This is a multi-part message in MIME format.#{EOL}"
@@ -44,7 +50,11 @@ class TinyMIME
     ''
   end
   def to_s
-    head + preamble + body + epilogue
+    head + full_body
+  end
+  # full message without the headers
+  def full_body
+    preamble + body + epilogue
   end
 end
 

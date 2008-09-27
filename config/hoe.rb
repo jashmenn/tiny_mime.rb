@@ -8,6 +8,7 @@ RUBYFORGE_PROJECT = 'tiny_mime' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 EXTRA_DEPENDENCIES = [
+#  ['orderedhash', '>= 0.0.4']
 #  ['activesupport', '>= 1.3.1']
 ]    # An array of rubygem dependencies [name, version]
 
