@@ -32,3 +32,10 @@ namespace :manifest do
     `rake check_manifest | patch -p0 > Manifest.txt`
   end
 end
+
+namespace :github do
+  desc "Generate the Gemspec for github"
+  task :generate_gemspec do
+    sh "rake --silent debug_gem > #{GEM_NAME}.gemspec"
+  end
+end
