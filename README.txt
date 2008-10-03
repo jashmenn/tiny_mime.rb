@@ -1,32 +1,45 @@
 = tiny_mime
 
-* FIX (url)
+* http://github.com/jashmenn/tiny_mime.rb/tree/master
 
 == DESCRIPTION:
 
-FIX (describe your package)
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
+# A class for encoding data into MIME attachments. Not optimized for
+# large attachments, but should be sufficient for small attachments.
+#
+# Original author:  Matt Pulver
+# maintained by: Nate Murray
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  require 'tiny_mime'
+  mime = TinyMIME.new
+  mime.attach!('This is the first message.','Content-Type' => 'text/plain')
+  mime.attach!('This is message two.')
+  puts mime.to_s
 
-== REQUIREMENTS:
+returns something like:
 
-* FIX (list of requirements)
+  Content-Type: Multipart/Related; boundary="qI656pjBHP8253G5dn3nBXdixCNSbjfE9284jdQVSd1"; charset=utf-8
+
+  This is a multi-part message in MIME format.
+
+  --qI656pjBHP8253G5dn3nBXdixCNSbjfE9284jdQVSd1
+  Content-Type: text/plain
+
+  This is the first message.
+  --qI656pjBHP8253G5dn3nBXdixCNSbjfE9284jdQVSd1
+
+  This is message two.
+  --qI656pjBHP8253G5dn3nBXdixCNSbjfE9284jdQVSd1--
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* gem install --source http://gems.github.com tiny_mime
 
 == LICENSE:
 
 (The MIT License)
-
-Copyright (c) 2008 Nate Murray
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
