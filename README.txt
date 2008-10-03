@@ -35,7 +35,17 @@ returns something like:
 
 == INSTALL:
 
-* gem install --source http://gems.github.com tiny_mime
+Run the following if you haven't already:
+
+  * gem sources -a http://gems.github.com
+
+Install the gem(s):
+
+  * sudo gem install jashmenn-tiny_mime
+
+OR
+
+  * sudo gem install --source http://gems.github.com jashmenn-tiny_mime
 
 == LICENSE:
 
